@@ -20,9 +20,9 @@ Dự án này là bản chuyển đổi (rewrite) từ NestJS sang Node.js + Exp
 - [x] Viết Middleware xác thực (tương đương `JwtAuthGuard`) và phân quyền (tương đương `RolesGuard`).
 
 ## Phase 3: Category & Product Module
-- [ ] Xây dựng `CategoryModule` (CRUD danh mục).
-- [ ] Xây dựng `ProductModule` (CRUD sản phẩm, phân trang, lọc, tìm kiếm).
-- [ ] Xây dựng `UploadModule`: Xử lý upload ảnh bằng Multer.
+- [x] Xây dựng `CategoryModule` (CRUD danh mục).
+- [x] Xây dựng `ProductModule` (CRUD sản phẩm, phân trang, lọc, tìm kiếm).
+- [x] Xây dựng `UploadModule`: Xử lý upload ảnh bằng Multer.
 
 ## Phase 4: Cart & Order Module (Trọng tâm)
 - [ ] Xây dựng `CartModule`: Quản lý giỏ hàng.

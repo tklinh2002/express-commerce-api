@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { AppError } from '../exceptions/AppError';
 
-export const jwtAuthMiddleware = (req: Request, res: Response, next: NextFunction): void => {
+export const jwtAuthMiddleware = (req: Request, _: Response, next: NextFunction): void => {
   // 1. Get token from the Authorization header
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {

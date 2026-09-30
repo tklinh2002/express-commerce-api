@@ -3,6 +3,11 @@ import cors from 'cors';
 import helmet from 'helmet';
 import { errorHandler } from './core/middlewares/errorHandler';
 import authRoutes from './modules/auth/auth.routes';
+import categoryRoutes from './modules/category/category.routes';
+import productRoutes from './modules/product/product.routes';
+import path from 'path';
+import uploadRoutes from './modules/upload/upload.routes';
+
 
 const app: Application = express();
 
@@ -23,6 +28,12 @@ app.get('/health', (req: Request, res: Response) => {
 
 // 3. TODO: Register application routes here (Module routers)
 app.use('/auth', authRoutes);
+app.use('/categories', categoryRoutes);
+app.use('/products', productRoutes);
+
+// Serve static files from the 'uploads' directory
+app.use('/uploads', express.static(path.join(__dirname, '../../uploads')));
+app.use('/upload', uploadRoutes);
 
 // 4. TODO: Register global error handler (Similar to ExceptionFilter)
 app.use(errorHandler);
