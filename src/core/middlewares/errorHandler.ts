@@ -6,17 +6,14 @@ export const errorHandler = (
   err: Error | AppError,
   req: Request,
   res: Response,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction
 ): void => {
-  let statusCode = 500;
-  let message = 'Internal Server Error';
+  const statusCode = err instanceof AppError ? err.statusCode : 500;
+  const message = err instanceof AppError ? err.message : 'Internal Server Error';
 
-  // If it's a known error thrown by us
-  if (err instanceof AppError) {
-    statusCode = err.statusCode;
-    message = err.message;
-  } else {
-    // Unexpected error, log it for debugging
+  // Unexpected error, log it for debugging
+  if (!(err instanceof AppError)) {
     console.error('🔥 UNEXPECTED ERROR:', err);
   }
 

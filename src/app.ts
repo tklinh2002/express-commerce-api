@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import { errorHandler } from './core/middlewares/errorHandler';
+import authRoutes from './modules/auth/auth.routes';
 
 const app: Application = express();
 
@@ -21,6 +22,7 @@ app.get('/health', (req: Request, res: Response) => {
 });
 
 // 3. TODO: Register application routes here (Module routers)
+app.use('/auth', authRoutes);
 
 // 4. TODO: Register global error handler (Similar to ExceptionFilter)
 app.use(errorHandler);

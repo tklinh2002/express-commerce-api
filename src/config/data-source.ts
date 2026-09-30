@@ -10,10 +10,7 @@ export const AppDataSource = new DataSource({
   synchronize: true, 
   // Set to true if you want to see the generated SQL queries in the console
   logging: false,    
-  entities: [
-    // Automatically load all files ending with .entity.ts or .entity.js
-    __dirname + '/../**/*.entity{.ts,.js}'
-  ],
+  entities: ["src/**/*.entity{.ts,.js}"],
   subscribers: [],
   migrations: [],
 });

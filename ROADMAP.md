@@ -13,11 +13,11 @@ Dự án này là bản chuyển đổi (rewrite) từ NestJS sang Node.js + Exp
 - [x] Khởi tạo TypeORM, cấu hình `data-source.ts`, kết nối Database thành công.
 
 ## Phase 2: Auth Module (JWT, Password Hashing, Guards)
-- [ ] Tạo entity `User` (`User.entity.ts`).
-- [ ] Tạo `AuthModule`: `auth.routes.ts`, `auth.controller.ts`, `auth.service.ts`.
-- [ ] Đăng ký (Hash password với bcrypt), Đăng nhập (tạo Access & Refresh Token).
-- [ ] Lưu Refresh Token.
-- [ ] Viết Middleware xác thực (tương đương `JwtAuthGuard`) và phân quyền (tương đương `RolesGuard`).
+- [x] Tạo entity `User` (`User.entity.ts`).
+- [x] Tạo `AuthModule`: `auth.routes.ts`, `auth.controller.ts`, `auth.service.ts`.
+- [x] Đăng ký (Hash password với bcrypt), Đăng nhập (tạo Access & Refresh Token).
+- [x] Lưu Refresh Token.
+- [x] Viết Middleware xác thực (tương đương `JwtAuthGuard`) và phân quyền (tương đương `RolesGuard`).
 
 ## Phase 3: Category & Product Module
 - [ ] Xây dựng `CategoryModule` (CRUD danh mục).
