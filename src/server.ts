@@ -13,6 +13,10 @@ const bootstrap = async () => {
     await AppDataSource.initialize();
     console.log('📦 Database connected successfully!');
 
+    // Initialize Swagger
+    const { setupSwagger } = await import('./config/swagger');
+    setupSwagger(app);
+
     app.listen(PORT, () => {
       console.log(`🚀 Server is running on http://localhost:${PORT}`);
       console.log(`🩺 Health check: http://localhost:${PORT}/health`);

@@ -11,6 +11,18 @@ const cartController = new CartController();
 router.use(jwtAuthMiddleware);
 
 // Routes
+/**
+ * @swagger
+ * /cart:
+ *   get:
+ *     summary: Get my cart
+ *     tags: [Cart]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: My active cart
+ */
 router.get('/', cartController.getCart);
 router.post('/', validationMiddleware(AddToCartDto), cartController.addToCart);
 router.delete('/items/:itemId', cartController.removeItem);

@@ -1,4 +1,4 @@
-import express, { Application, Request, Response } from 'express';
+import express, { Application } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import { errorHandler } from './core/middlewares/errorHandler';
@@ -9,6 +9,8 @@ import path from 'path';
 import uploadRoutes from './modules/upload/upload.routes';
 import cartRoutes from './modules/cart/cart.routes';
 import orderRoutes from './modules/order/order.routes';
+import healthRoutes from './modules/health/health.routes';
+import { responseInterceptor } from './core/interceptors/response.interceptor';
 
 const app: Application = express();
 
@@ -17,15 +19,10 @@ app.use(helmet()); // Secure HTTP headers
 app.use(cors()); // Enable Cross-Origin Resource Sharing
 app.use(express.json()); // Parse incoming JSON requests (similar to ValidationPipe payload parsing)
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+app.use(responseInterceptor); // Intercept and format all responses globally
 
-// 2. Healthcheck Route (Similar to AppController)
-app.get('/health', (req: Request, res: Response) => {
-  res.status(200).json({
-    status: 'success',
-    message: 'Server is up and running!',
-    timestamp: new Date().toISOString(),
-  });
-});
+// 2. Healthcheck Route (Checking DB, Redis, App)
+app.use('/health', healthRoutes);
 
 // 3. TODO: Register application routes here (Module routers)
 app.use('/auth', authRoutes);

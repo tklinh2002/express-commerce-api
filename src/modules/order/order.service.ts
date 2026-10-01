@@ -94,7 +94,7 @@ export class OrderService {
       await orderQueue.add(
         'cancelUnpaidOrder',
         { userId, orderId: savedOrder.id },
-        { delay: cancelDelayMs }, // Use env variable
+        { delay: cancelDelayMs, jobId: savedOrder.id }, // Use env variable
       );
 
       return savedOrder;

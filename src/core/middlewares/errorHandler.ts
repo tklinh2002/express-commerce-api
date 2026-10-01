@@ -2,6 +2,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { AppError } from '../exceptions/AppError';
 
+import { logger } from '../logger/winston.logger';
+
 export const errorHandler = (
   err: Error | AppError,
   req: Request,
@@ -14,7 +16,9 @@ export const errorHandler = (
 
   // Unexpected error, log it for debugging
   if (!(err instanceof AppError)) {
-    console.error('🔥 UNEXPECTED ERROR:', err);
+    logger.error(`[UNEXPECTED ERROR] ${req.method} ${req.url} - ${err.message}`, {
+      stack: err.stack,
+    });
   }
 
   // Standardized response format for the entire application

@@ -13,6 +13,7 @@ export class VnPayService {
     const date = new Date();
     const createDate = this.formatDate(date);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let vnp_Params: any = {
       vnp_Version: '2.1.0',
       vnp_Command: 'pay',
@@ -45,6 +46,7 @@ export class VnPayService {
   }
 
   // 2. VERIFY SIGNATURE FROM VNPAY (Prevent hackers from modifying the link)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public verifyIpnSignature(vnp_Params: any): boolean {
     const secureHash = vnp_Params['vnp_SecureHash'];
     // Remove signature from parameters to recalculate
@@ -60,7 +62,9 @@ export class VnPayService {
   }
 
   // VNPay helper function
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private sortObject(obj: any): any {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const sorted: any = {};
     const str = [];
     let key;

@@ -18,8 +18,9 @@ export class ProductService {
   }
 
   // READ ALL (With Pagination, Filtering, and Searching)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   async findAll(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     query: any,
   ): Promise<{ data: Product[]; total: number; page: number; limit: number }> {
     const { search, categoryId, page = 1, limit = 10 } = query;

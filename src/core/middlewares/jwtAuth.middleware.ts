@@ -16,11 +16,11 @@ export const jwtAuthMiddleware = (req: Request, _: Response, next: NextFunction)
     // 2. Verify token using the secret key
     const decoded = jwt.verify(token, process.env.JWT_ACCESS_SECRET as string);
 
-    // 3. Attach decoded user payload to the request (for downstream controllers/middlewares)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     req.user = decoded as any;
 
     next();
-  } catch (error) {
+  } catch {
     // Token is invalid or expired
     return next(new AppError('Unauthorized: Invalid or expired token', 401));
   }

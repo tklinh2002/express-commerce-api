@@ -11,6 +11,18 @@ router.get('/vnpay/return', orderController.vnpayReturn);
 // SECURITY: All other order routes require the user to be logged in
 router.use(jwtAuthMiddleware);
 
+/**
+ * @swagger
+ * /orders/checkout:
+ *   post:
+ *     summary: Checkout cart and create an order
+ *     tags: [Orders]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       201:
+ *         description: Order created successfully
+ */
 // POST /orders/checkout -> Create order from cart
 router.post('/checkout', orderController.checkout);
 

@@ -10,7 +10,34 @@ const router = Router();
 const categoryController = new CategoryController();
 
 // 1. PUBLIC ROUTES (Anyone can view categories)
+/**
+ * @swagger
+ * /categories:
+ *   get:
+ *     summary: Get all categories
+ *     tags: [Categories]
+ *     responses:
+ *       200:
+ *         description: List of categories
+ */
 router.get('/', categoryController.findAll);
+
+/**
+ * @swagger
+ * /categories/{id}:
+ *   get:
+ *     summary: Get category by ID
+ *     tags: [Categories]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Category details
+ */
 router.get('/:id', categoryController.findOne);
 
 // 2. PROTECTED ROUTES (Only ADMIN can modify categories)

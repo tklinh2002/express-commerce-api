@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { OrderService } from './order.service';
 import { VnPayService } from './vnpay.service';
+import { orderQueue } from '../../jobs/order.queue';
 
 export class OrderController {
   private orderService: OrderService;
@@ -63,8 +64,13 @@ export class OrderController {
 
         if (responseCode === '00') {
           // Success code in VNPay is '00'
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           await this.orderService.updateOrderStatus(orderId, 'PAID' as any);
-          res.send('<h1>Payment Successful!</h1><p>Your order status has been updated to PAID.</p>');
+          // remove job in queue when order is paid
+          await orderQueue.remove(orderId);
+          res.send(
+            '<h1>Payment Successful!</h1><p>Your order status has been updated to PAID.</p>',
+          );
         } else {
           // User cancelled or payment failed
           res.send('<h1>Payment Failed or Cancelled!</h1><p>Please try again.</p>');
