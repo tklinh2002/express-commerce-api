@@ -13,10 +13,10 @@ export class CategoryService {
 
   // CREATE
   async create(createCategoryDto: CreateCategoryDto): Promise<Category> {
-    const existingCategory = await this.categoryRepository.findOne({ 
-      where: { name: createCategoryDto.name } 
+    const existingCategory = await this.categoryRepository.findOne({
+      where: { name: createCategoryDto.name },
     });
-    
+
     if (existingCategory) {
       throw new AppError('Category with this name already exists', 400);
     }
@@ -45,8 +45,8 @@ export class CategoryService {
 
     // If updating name, ensure it doesn't conflict with another category
     if (updateCategoryDto.name && updateCategoryDto.name !== category.name) {
-      const existingCategory = await this.categoryRepository.findOne({ 
-        where: { name: updateCategoryDto.name } 
+      const existingCategory = await this.categoryRepository.findOne({
+        where: { name: updateCategoryDto.name },
       });
       if (existingCategory) {
         throw new AppError('Category with this name already exists', 400);

@@ -7,13 +7,14 @@ import categoryRoutes from './modules/category/category.routes';
 import productRoutes from './modules/product/product.routes';
 import path from 'path';
 import uploadRoutes from './modules/upload/upload.routes';
-
+import cartRoutes from './modules/cart/cart.routes';
+import orderRoutes from './modules/order/order.routes';
 
 const app: Application = express();
 
 // 1. Global Middlewares (Similar to NestJS app.use() or global pipes/guards)
 app.use(helmet()); // Secure HTTP headers
-app.use(cors());   // Enable Cross-Origin Resource Sharing
+app.use(cors()); // Enable Cross-Origin Resource Sharing
 app.use(express.json()); // Parse incoming JSON requests (similar to ValidationPipe payload parsing)
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
@@ -22,7 +23,7 @@ app.get('/health', (req: Request, res: Response) => {
   res.status(200).json({
     status: 'success',
     message: 'Server is up and running!',
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 });
 
@@ -30,6 +31,8 @@ app.get('/health', (req: Request, res: Response) => {
 app.use('/auth', authRoutes);
 app.use('/categories', categoryRoutes);
 app.use('/products', productRoutes);
+app.use('/cart', cartRoutes);
+app.use('/orders', orderRoutes);
 
 // Serve static files from the 'uploads' directory
 app.use('/uploads', express.static(path.join(__dirname, '../../uploads')));

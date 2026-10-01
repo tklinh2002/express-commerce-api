@@ -7,7 +7,7 @@ export const errorHandler = (
   req: Request,
   res: Response,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  next: NextFunction
+  next: NextFunction,
 ): void => {
   const statusCode = err instanceof AppError ? err.statusCode : 500;
   const message = err instanceof AppError ? err.message : 'Internal Server Error';

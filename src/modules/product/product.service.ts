@@ -19,11 +19,14 @@ export class ProductService {
 
   // READ ALL (With Pagination, Filtering, and Searching)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async findAll(query: any): Promise<{ data: Product[]; total: number; page: number; limit: number }> {
+  async findAll(
+    query: any,
+  ): Promise<{ data: Product[]; total: number; page: number; limit: number }> {
     const { search, categoryId, page = 1, limit = 10 } = query;
-    
+
     // Initialize QueryBuilder
-    const qb = this.productRepository.createQueryBuilder('product')
+    const qb = this.productRepository
+      .createQueryBuilder('product')
       .leftJoinAndSelect('product.category', 'category'); // Eager load the category
 
     // 1. Search by name (Case-insensitive ILIKE for Postgres)
@@ -39,7 +42,7 @@ export class ProductService {
     // 3. Pagination logic
     const pageNumber = parseInt(page as string, 10) || 1;
     const limitNumber = parseInt(limit as string, 10) || 10;
-    
+
     qb.skip((pageNumber - 1) * limitNumber);
     qb.take(limitNumber);
     qb.orderBy('product.createdAt', 'DESC');
@@ -57,13 +60,13 @@ export class ProductService {
 
   // READ ONE
   async findOne(id: string): Promise<Product> {
-    const product = await this.productRepository.findOne({ 
+    const product = await this.productRepository.findOne({
       where: { id },
-      relations:{
-        category:true // Fetch associated category
-      } 
+      relations: {
+        category: true, // Fetch associated category
+      },
     });
-    
+
     if (!product) {
       throw new AppError('Product not found', 404);
     }

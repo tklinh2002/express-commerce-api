@@ -4,13 +4,13 @@ import 'dotenv/config';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
-  url: process.env.DATABASE_URL, 
+  url: process.env.DATABASE_URL,
   // Automatically create/update database tables based on entities.
   // Warning: Set to false in production to prevent data loss!
-  synchronize: true, 
+  synchronize: true,
   // Set to true if you want to see the generated SQL queries in the console
-  logging: false,    
-  entities: ["src/**/*.entity{.ts,.js}"],
+  logging: false,
+  entities: ['src/**/*.entity{.ts,.js}'],
   subscribers: [],
   migrations: [],
 });

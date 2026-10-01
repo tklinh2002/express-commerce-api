@@ -12,7 +12,7 @@ router.post(
   '/image',
   jwtAuthMiddleware, // Must be logged in to upload
   uploadMiddleware.single('image'),
-  uploadController.uploadImage
+  uploadController.uploadImage,
 );
 
 export default router;

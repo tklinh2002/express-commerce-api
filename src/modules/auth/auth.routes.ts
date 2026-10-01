@@ -9,17 +9,9 @@ const authController = new AuthController();
 
 // Route: POST /auth/register
 // Use validationMiddleware to validate req.body against RegisterDto
-router.post(
-  '/register',
-  validationMiddleware(RegisterDto),
-  authController.register
-);
+router.post('/register', validationMiddleware(RegisterDto), authController.register);
 
 // Route: POST /auth/login
-router.post(
-  '/login',
-  validationMiddleware(LoginDto),
-  authController.login
-);
+router.post('/login', validationMiddleware(LoginDto), authController.login);
 
 export default router;

@@ -19,7 +19,7 @@ router.post(
   jwtAuthMiddleware,
   rolesMiddleware(UserRole.ADMIN),
   validationMiddleware(CreateProductDto),
-  productController.create
+  productController.create,
 );
 
 router.put(
@@ -27,14 +27,9 @@ router.put(
   jwtAuthMiddleware,
   rolesMiddleware(UserRole.ADMIN),
   validationMiddleware(UpdateProductDto),
-  productController.update
+  productController.update,
 );
 
-router.delete(
-  '/:id',
-  jwtAuthMiddleware,
-  rolesMiddleware(UserRole.ADMIN),
-  productController.delete
-);
+router.delete('/:id', jwtAuthMiddleware, rolesMiddleware(UserRole.ADMIN), productController.delete);
 
 export default router;

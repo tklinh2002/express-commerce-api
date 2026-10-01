@@ -12,7 +12,7 @@ export class AuthController {
     try {
       // req.body is already validated and transformed by our validationMiddleware
       const user = await this.authService.register(req.body);
-      
+
       res.status(201).json({
         status: 'success',
         message: 'User registered successfully',
@@ -28,7 +28,7 @@ export class AuthController {
     try {
       // req.body is validated against LoginDto
       const result = await this.authService.login(req.body);
-      
+
       res.status(200).json({
         status: 'success',
         message: 'User logged in successfully',
@@ -38,5 +38,4 @@ export class AuthController {
       next(error);
     }
   };
-
 }

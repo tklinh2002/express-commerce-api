@@ -3,7 +3,7 @@ import * as bcrypt from 'bcrypt';
 import { AppDataSource } from '../../config/data-source';
 import { User } from './entities/User.entity';
 import { RegisterDto } from './dtos/register.dto';
-import { AppError } from '../../core/exceptions/AppError'; 
+import { AppError } from '../../core/exceptions/AppError';
 import jwt from 'jsonwebtoken';
 import { LoginDto } from './dtos/login.dto';
 
@@ -42,7 +42,7 @@ export class AuthService {
     // 5. Omit sensitive data before returning
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password: _, refreshToken: __, ...userWithoutPassword } = newUser;
-    
+
     return userWithoutPassword as Omit<User, 'password' | 'refreshToken'>;
   }
 
@@ -54,12 +54,12 @@ export class AuthService {
     // IMPORTANT: We MUST explicitly select 'password' because we set `select: false` in User Entity
     const user = await this.userRepository.findOne({
       where: { email },
-      select:{
+      select: {
         id: true,
         email: true,
         password: true,
         role: true,
-      } 
+      },
     });
 
     if (!user) {
@@ -82,25 +82,25 @@ export class AuthService {
     // 5. Omit password and return
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password: _, ...userWithoutPassword } = user;
-    
+
     return {
       user: userWithoutPassword,
-      tokens
+      tokens,
     };
   }
 
   // Helper: Generate Access and Refresh Tokens
   private generateTokens(user: User) {
     const payload = { id: user.id, role: user.role };
-    
-    const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET as string, { 
-      expiresIn: '15m' // Access Token live 15 minutes
+
+    const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET as string, {
+      expiresIn: '15m', // Access Token live 15 minutes
     });
-    
-    const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET as string, { 
-      expiresIn: '7d' // Refresh Token live 7 days
+
+    const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET as string, {
+      expiresIn: '7d', // Refresh Token live 7 days
     });
-    
+
     return { accessToken, refreshToken };
   }
 }
