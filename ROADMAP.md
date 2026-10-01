@@ -25,10 +25,10 @@ Dự án này là bản chuyển đổi (rewrite) từ NestJS sang Node.js + Exp
 - [x] Xây dựng `UploadModule`: Xử lý upload ảnh bằng Multer.
 
 ## Phase 4: Cart & Order Module (Trọng tâm)
-- [ ] Xây dựng `CartModule`: Quản lý giỏ hàng.
-- [ ] Xây dựng `OrderModule`: Tạo đơn hàng từ giỏ.
-- [ ] **Transaction**: Dùng `QueryRunner` của TypeORM để an toàn trừ kho, tránh race condition.
-- [ ] Hủy đơn hàng và hoàn lại số lượng tồn kho.
+- [x] Xây dựng `CartModule`: Quản lý giỏ hàng.
+- [x] Xây dựng `OrderModule`: Tạo đơn hàng từ giỏ.
+- [x] **Transaction**: Dùng `QueryRunner` của TypeORM để an toàn trừ kho, tránh race condition.
+- [x] Hủy đơn hàng và hoàn lại số lượng tồn kho.
 
 ## Phase 5: Background Jobs & Thanh toán
 - [ ] Tích hợp BullMQ với Redis.

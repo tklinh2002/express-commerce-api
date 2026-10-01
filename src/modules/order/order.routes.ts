@@ -5,7 +5,10 @@ import { jwtAuthMiddleware } from '../../core/middlewares/jwtAuth.middleware';
 const router = Router();
 const orderController = new OrderController();
 
-// SECURITY: All order routes require the user to be logged in
+// VNPay Return (Must be BEFORE jwtAuthMiddleware because VNPay redirect doesn't have our JWT token)
+router.get('/vnpay/return', orderController.vnpayReturn);
+
+// SECURITY: All other order routes require the user to be logged in
 router.use(jwtAuthMiddleware);
 
 // POST /orders/checkout -> Create order from cart

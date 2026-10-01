@@ -2,6 +2,8 @@ import 'reflect-metadata';
 import 'dotenv/config'; // Automatically load environment variables (Similar to ConfigModule.forRoot)
 import app from './app';
 import { AppDataSource } from './config/data-source';
+import './jobs/email.queue';
+import './jobs/order.queue';
 
 const PORT = process.env.PORT || 3000;
 

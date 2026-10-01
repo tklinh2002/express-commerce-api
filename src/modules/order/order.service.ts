@@ -6,6 +6,8 @@ import { Cart } from '../cart/entities/Cart.entity';
 import { CartItem } from '../cart/entities/CartItem.entity';
 import { Product } from '../product/entities/Product.entity';
 import { AppError } from '../../core/exceptions/AppError';
+import { emailQueue } from '../../jobs/email.queue';
+import { orderQueue } from '../../jobs/order.queue';
 
 export class OrderService {
   private orderRepository: Repository<Order>;
@@ -25,6 +27,7 @@ export class OrderService {
         items: {
           product: true,
         },
+        user: true,
       },
     });
 
@@ -80,6 +83,19 @@ export class OrderService {
 
       // F. Commit the transaction (EVERYTHING SUCCEEDS)
       await queryRunner.commitTransaction();
+
+      await emailQueue.add('sendOrderConfirmation', {
+        to: cart.user.email,
+        subject: `Order Confirmation #${savedOrder.id}`,
+        totalAmount: savedOrder.totalAmount,
+      });
+
+      const cancelDelayMs = parseInt(process.env.ORDER_CANCEL_DELAY_MS || '900000', 10); // Default 15 minutes
+      await orderQueue.add(
+        'cancelUnpaidOrder',
+        { userId, orderId: savedOrder.id },
+        { delay: cancelDelayMs }, // Use env variable
+      );
 
       return savedOrder;
     } catch (error) {
@@ -148,5 +164,10 @@ export class OrderService {
     } finally {
       await queryRunner.release();
     }
+  }
+
+  // 4. UPDATE ORDER STATUS (For VNPay IPN/Return)
+  async updateOrderStatus(orderId: string, status: OrderStatus): Promise<void> {
+    await this.orderRepository.update(orderId, { status });
   }
 }
